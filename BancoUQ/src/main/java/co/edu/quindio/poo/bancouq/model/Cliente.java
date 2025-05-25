@@ -2,6 +2,7 @@ package co.edu.quindio.poo.bancouq.model;
 
 import java.util.ArrayList;
 
+public class Cliente extends Usuario {
     private String idUsuario;
     private ArrayList<CuentaBancaria> cuentas;
 
