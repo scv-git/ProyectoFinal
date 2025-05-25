@@ -1,4 +1,4 @@
-package co.edu.quindio.poo.bancouq.model;
+package main.java.co.edu.quindio.poo.bancouq.model;
 
 public abstract class Usuario {
 }
