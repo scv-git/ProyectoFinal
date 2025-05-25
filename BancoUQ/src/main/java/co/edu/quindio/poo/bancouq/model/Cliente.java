@@ -2,11 +2,7 @@ package co.edu.quindio.poo.bancouq.model;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 public class Cliente extends Usuario{
-=======
-public class Cliente extends Usuario {
->>>>>>> Arevalangas
     private String idUsuario;
     private ArrayList<CuentaBancaria> cuentas;
 
@@ -51,7 +47,7 @@ public class Cliente extends Usuario {
         if (historialTransacciones.isEmpty()) {
             return "No hay transacciones registradas.";
         }
-        StringBuilder historial = new StringBuilder("📜 Historial de Transacciones:\n");
+        StringBuilder historial = new StringBuilder("Historial de Transacciones:\n");
         for (Transaccion transaccion : historialTransacciones) {
             historial.append(transaccion.toString()).append("\n");
         }
@@ -85,7 +81,7 @@ public class Cliente extends Usuario {
 
         Transferencia transferencia = new Transferencia(cuentaOrigen, cuentaDestino, monto);
         this.agregarTransaccion(transferencia);
-        return "✅ Transferencia realizada con éxito.";
+        return "Transferencia realizada con éxito.";
     }
 
 }
