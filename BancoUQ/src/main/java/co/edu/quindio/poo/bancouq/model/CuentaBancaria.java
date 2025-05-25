@@ -87,6 +87,38 @@ public abstract class CuentaBancaria {
     }
 
 
+    public double depositar(double valorIngresado) {
+        if (valorIngresado > 0) {
+            saldo += valorIngresado;
+            System.out.println("Depósito exitoso. Nuevo saldo: " + saldo);
+
+        } else {
+            System.out.println("El valor ingresado debe ser mayor a 0");
+        }
+
+        return saldo;
+
+    }
+
+
+
+    public double retirar(double valorRetirado) {
+
+        saldo -= valorRetirado;
+        System.out.println("Retiro exitoso");
+        return saldo;
+
+
+    }
+
+
+    public String verSaldo() {
+
+        return "El saldo actual en su cuenta es de: " + saldo;
+
+
+    }
+
 
 
 }

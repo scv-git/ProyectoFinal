@@ -25,4 +25,26 @@ public class Ahorro extends CuentaBancaria{
                 "tasaInteres=" + tasaInteres +
                 '}';
     }
+
+    @Override
+    public double depositar(double valorIngresado) {
+        return super.depositar(valorIngresado);
+    }
+
+    public double calculaSaldoInteres(double tasaInteresactual) {
+
+        saldo = saldo + (saldo * tasaInteresactual);
+        return saldo;
+
+    }
+
+    @Override
+    public double retirar(double valorRetirado) {
+        return super.retirar(valorRetirado);
+    }
+
+    @Override
+    public String verSaldo() {
+        return super.verSaldo();
+    }
 }
