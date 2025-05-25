@@ -57,6 +57,14 @@ public abstract class Usuario {
         this.pin = pin;
     }
 
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +

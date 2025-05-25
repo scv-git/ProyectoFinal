@@ -6,7 +6,7 @@ public class Cliente extends Usuario{
     private String idUsuario;
     private ArrayList<CuentaBancaria> cuentas;
 
-    public Cliente(String nombres, String apellidos,String identifiacion, String correo, String pin, String telefono,String codigocajero) {
+    public Cliente(String nombres, String apellidos,String identifiacion, String correo, String pin, String telefono) {
         super(nombres,apellidos,identifiacion,correo,pin,telefono);
         this.idUsuario = idUsuario;
         this.cuentas = new ArrayList<>();
