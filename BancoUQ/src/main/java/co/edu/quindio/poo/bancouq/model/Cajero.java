@@ -55,7 +55,7 @@ public class Cajero extends Usuario{
 
         banco.registrarusuario(nuevoCliente);
 
-        return "✅ Cliente y cuenta tipo '" + tipoCuenta + "' registrados exitosamente.";
+        return "Cliente y cuenta tipo '" + tipoCuenta + "' registrados exitosamente.";
     }
 
     public String realizarDeposito(String identificacion, double monto, Banco banco) {
@@ -139,5 +139,5 @@ public class Cajero extends Usuario{
         }
         return "Cliente no encontrado.";
     }
-    
+
 }
