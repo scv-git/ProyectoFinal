@@ -63,17 +63,17 @@ public class Cliente extends Usuario{
         }
 
         if (cuentaOrigen == null) {
-            return "❌ Cuenta origen no encontrada.";
+            return "Cuenta origen no encontrada.";
         }
 
         // Buscar cuenta destino en todos los clientes del banco
         CuentaBancaria cuentaDestino = banco.buscarCuentaPorNumero(numeroCuentaDestino);
         if (cuentaDestino == null) {
-            return "❌ Cuenta destino no encontrada.";
+            return "Cuenta destino no encontrada.";
         }
 
         if (cuentaOrigen.getSaldo() < monto) {
-            return "❌ Saldo insuficiente.";
+            return "Saldo insuficiente.";
         }
 
         cuentaOrigen.retirar(monto);
