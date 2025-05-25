@@ -2,7 +2,11 @@ package co.edu.quindio.poo.bancouq.model;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 public class Cliente extends Usuario{
+=======
+public class Cliente extends Usuario {
+>>>>>>> Arevalangas
     private String idUsuario;
     private ArrayList<CuentaBancaria> cuentas;
 
