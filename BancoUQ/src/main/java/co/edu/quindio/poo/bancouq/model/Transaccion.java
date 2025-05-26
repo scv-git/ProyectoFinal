@@ -1,10 +1,15 @@
 package main.java.co.edu.quindio.poo.bancouq.model;
 
+import co.edu.quindio.poo.bancouq.model.CuentaBancaria;
+import co.edu.quindio.poo.bancouq.model.Deposito;
+import co.edu.quindio.poo.bancouq.model.Retiro;
+import co.edu.quindio.poo.bancouq.model.Transferencia;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Transaccion implements Transacciones {
+public abstract class Transaccion implements main.java.co.edu.quindio.poo.bancouq.model.Transacciones {
     protected String id;
     protected Date fecha;
     protected double monto;
