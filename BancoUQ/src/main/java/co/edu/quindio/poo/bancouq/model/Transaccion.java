@@ -1,4 +1,4 @@
-package main.java.co.edu.quindio.poo.bancouq.model;
+package co.edu.quindio.poo.bancouq.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,11 +63,6 @@ public abstract class Transaccion implements Transacciones {
         } else {
             System.out.println("Fondos insuficientes para la transferencia.");
         }
-    }
-
-
-    public List<Transaccion> obtenerHistorialTransacciones() {
-        return historial;
     }
 
 

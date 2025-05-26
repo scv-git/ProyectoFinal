@@ -5,11 +5,14 @@ import java.util.ArrayList;
 public class Cliente extends Usuario{
     private String idUsuario;
     private ArrayList<CuentaBancaria> cuentas;
+    private ArrayList<Transaccion> historialTransacciones;
+
 
     public Cliente(String nombres, String apellidos,String identifiacion, String correo, String pin, String telefono) {
         super(nombres,apellidos,identifiacion,correo,pin,telefono);
         this.idUsuario = idUsuario;
         this.cuentas = new ArrayList<>();
+        this.historialTransacciones = new ArrayList<>();
     }
 
     public String getIdUsuario() {
@@ -28,6 +31,14 @@ public class Cliente extends Usuario{
         this.cuentas = cuentas;
     }
 
+    public ArrayList<Transaccion> getHistorialTransacciones() {
+        return historialTransacciones;
+    }
+
+    public void setHistorialTransacciones(ArrayList<Transaccion> historialTransacciones) {
+        this.historialTransacciones = historialTransacciones;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
@@ -38,7 +49,7 @@ public class Cliente extends Usuario{
     public double consultarSaldo() {
         double total = 0;
         for (CuentaBancaria cuenta : cuentas) {
-            total += cuenta.consultarSaldo();
+            total += cuenta.getSaldo();
         }
         return total;
     }
@@ -66,8 +77,8 @@ public class Cliente extends Usuario{
             return "Cuenta origen no encontrada.";
         }
 
-        // Buscar cuenta destino en todos los clientes del banco
-        CuentaBancaria cuentaDestino = banco.buscarCuentaPorNumero(numeroCuentaDestino);
+        CuentaBancaria cuentaDestino = new CuentaBancaria;
+
         if (cuentaDestino == null) {
             return "Cuenta destino no encontrada.";
         }
@@ -80,7 +91,7 @@ public class Cliente extends Usuario{
         cuentaDestino.depositar(monto);
 
         Transferencia transferencia = new Transferencia(cuentaOrigen, cuentaDestino, monto);
-        this.agregarTransaccion(transferencia);
+        this.realizarTransferencia(Transaccion);
         return "Transferencia realizada con éxito.";
     }
 
