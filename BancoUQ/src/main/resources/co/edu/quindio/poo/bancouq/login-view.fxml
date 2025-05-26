@@ -18,9 +18,9 @@
     <center>
         <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #f5f5f5;">
             <!-- Logo y título -->
-            <ImageView fitHeight="66.0" fitWidth="82.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="84.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../../../images/logo-banco.png" />
+                    <Image url="@../../../../../images/logo-uq.png" />
                 </image>
             </ImageView>
 
