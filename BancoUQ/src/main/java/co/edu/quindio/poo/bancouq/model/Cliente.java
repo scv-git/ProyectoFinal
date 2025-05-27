@@ -1,6 +1,7 @@
 package co.edu.quindio.poo.bancouq.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Cliente extends Usuario{
     private String idUsuario;
@@ -64,6 +65,7 @@ public class Cliente extends Usuario{
         }
         return historial.toString();
     }
+
     public String realizarTransferencia(String numeroCuentaOrigen, String numeroCuentaDestino, double monto, Banco banco) {
         CuentaBancaria cuentaOrigen = null;
         for (CuentaBancaria cuenta : cuentas) {
@@ -77,7 +79,7 @@ public class Cliente extends Usuario{
             return "Cuenta origen no encontrada.";
         }
 
-        CuentaBancaria cuentaDestino = new CuentaBancaria;
+        CuentaBancaria cuentaDestino = banco.buscarusuario(numeroCuentaDestino);
 
         if (cuentaDestino == null) {
             return "Cuenta destino no encontrada.";
@@ -90,9 +92,12 @@ public class Cliente extends Usuario{
         cuentaOrigen.retirar(monto);
         cuentaDestino.depositar(monto);
 
-        Transferencia transferencia = new Transferencia(cuentaOrigen, cuentaDestino, monto);
-        this.realizarTransferencia(Transaccion);
+        String idTransaccion = UUID.randomUUID().toString();
+        Transferencia transferencia = new Transferencia(idTransaccion, new Date(), monto);
+        this.historialTransacciones.add(transferencia);
+
         return "Transferencia realizada con éxito.";
     }
+
 
 }

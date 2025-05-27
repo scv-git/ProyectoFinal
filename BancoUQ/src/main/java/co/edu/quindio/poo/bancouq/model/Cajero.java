@@ -52,13 +52,13 @@ public class Cajero extends Usuario{
 
         switch (tipoCuenta.trim().toLowerCase()) {
             case "ahorro":
-                nuevaCuenta = new Ahorro();
+                nuevaCuenta = new Ahorro(generarNumeroCuenta(banco), 0.0, 0.02);
                 break;
             case "corriente":
-                nuevaCuenta = new Corriente();
+                nuevaCuenta = new Corriente(generarNumeroCuenta(banco), 500.0, 0.0);
                 break;
             case "empresarial":
-                nuevaCuenta = new Empresarial();
+                nuevaCuenta = new Empresarial(generarNumeroCuenta(banco), 0.0, 10000.0);
                 break;
             default:
                 return "Tipo de cuenta inválido.";
@@ -100,12 +100,37 @@ public class Cajero extends Usuario{
         return "El cliente no tiene cuentas o no se encuentra registrado.";
     }
 
+    private String generarNumeroCuenta(Banco banco) {
+        String numeroCuenta;
+        boolean existe;
+
+        do {
+            numeroCuenta = "CTA" + String.format("%06d", contadorCuentas++);
+            existe = false;
+
+            for (Usuario usuario : banco.getListausuarios()) {
+                if (usuario instanceof Cliente) {
+                    Cliente cliente = (Cliente) usuario;
+                    for (CuentaBancaria cuenta : cliente.getCuentas()) {
+                        if (cuenta.getNumeroCuenta().equals(numeroCuenta)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                }
+                if (existe) break;
+            }
+        } while (existe);
+
+        return numeroCuenta;
+    }
+
     public double consultarSaldo(String identificacion, Banco banco) {
         Usuario usuario = banco.buscarusuario(identificacion);
         if (usuario instanceof Cliente) {
             Cliente cliente = (Cliente) usuario;
             if (!cliente.getCuentas().isEmpty()) {
-                return cliente.getCuentas().get(0).saldo;
+                return cliente.getCuentas().get(0).getSaldo();
             }
         }
         return -1;
