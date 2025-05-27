@@ -12,5 +12,5 @@ module co.edu.quindio.poo.bancouq {
     requires com.almasb.fxgl.all;
 
     opens co.edu.quindio.poo.bancouq to javafx.fxml;
-    exports co.edu.quindio.poo.bancouq;
+    exports co.edu.quindio.poo;
 }
