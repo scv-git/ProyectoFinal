@@ -1,11 +1,16 @@
 package co.edu.quindio.poo.bancouq.model;
+import co.edu.quindio.poo.bancouq.model.Ahorro;
+
+import java.util.ArrayList;
 
 public class Cajero extends Usuario{
     private String codigocajero;
+    private ArrayList<Transaccion> historialTransacciones;
 
     public Cajero(String nombres, String apellidos,String identifiacion, String correo, String pin, String telefono,String codigocajero) {
         super(nombres,apellidos,identifiacion,correo,pin,telefono);
         this.codigocajero = codigocajero;
+        this.historialTransacciones = new ArrayList<>();
 
     }
 
@@ -15,6 +20,14 @@ public class Cajero extends Usuario{
 
     public void setCodigocajero(String codigocajero) {
         this.codigocajero = codigocajero;
+    }
+
+    public ArrayList<Transaccion> getHistorialTransacciones() {
+        return historialTransacciones;
+    }
+
+    public void setHistorialTransacciones(ArrayList<Transaccion> historialTransacciones) {
+        this.historialTransacciones = historialTransacciones;
     }
 
     @Override
@@ -37,15 +50,15 @@ public class Cajero extends Usuario{
 
         CuentaBancaria nuevaCuenta = null;
 
-        switch (tipoCuenta.toLowerCase()) {
+        switch (tipoCuenta.trim().toLowerCase()) {
             case "ahorro":
-                nuevaCuenta = new Ahorro();
+                nuevaCuenta = new Ahorro(generarNumeroCuenta(banco), 0.0, 0.02);
                 break;
             case "corriente":
-                nuevaCuenta = new Corriente();
+                nuevaCuenta = new Corriente(generarNumeroCuenta(banco), 500.0, 0.0);
                 break;
             case "empresarial":
-                nuevaCuenta = new Empresarial();
+                nuevaCuenta = new Empresarial(generarNumeroCuenta(banco), 0.0, 10000.0);
                 break;
             default:
                 return "Tipo de cuenta inválido.";
@@ -63,8 +76,8 @@ public class Cajero extends Usuario{
         if (usuario instanceof Cliente) {
             Cliente cliente = (Cliente) usuario;
             if (!cliente.getCuentas().isEmpty()) {
-                CuentaBancaria cuenta = cliente.getCuentas().get(0); // Suponemos que usa la primera cuenta
-                cuenta.depositar(monto);  // Método de la clase CuentaBancaria
+                CuentaBancaria cuenta = cliente.getCuentas().get(0);
+                cuenta.depositar(monto);
                 return "Depósito realizado con éxito.";
             }
         }
@@ -76,9 +89,9 @@ public class Cajero extends Usuario{
             Cliente cliente = (Cliente) usuario;
             if (!cliente.getCuentas().isEmpty()) {
                 CuentaBancaria cuenta = cliente.getCuentas().get(0);
-                if (cuenta.consultarSaldo() >= monto) {
-                    cuenta.retirar(monto); // Método de la clase CuentaBancaria
-                    return "✅ Retiro realizado con éxito.";
+                if (cuenta.getSaldo() >= monto) {
+                    cuenta.retirar(monto);
+                    return "Retiro realizado con éxito.";
                 } else {
                     return "Saldo insuficiente.";
                 }
@@ -87,15 +100,41 @@ public class Cajero extends Usuario{
         return "El cliente no tiene cuentas o no se encuentra registrado.";
     }
 
+    private String generarNumeroCuenta(Banco banco) {
+        String numeroCuenta;
+        boolean existe;
+        int contadorCuentas = 0;
+
+        do {
+            numeroCuenta = "CTA" + String.format("%06d", contadorCuentas++);
+            existe = false;
+
+            for (Usuario usuario : banco.getListausuarios()) {
+                if (usuario instanceof Cliente) {
+                    Cliente cliente = (Cliente) usuario;
+                    for (CuentaBancaria cuenta : cliente.getCuentas()) {
+                        if (cuenta.getNumeroCuenta().equals(numeroCuenta)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                }
+                if (existe) break;
+            }
+        } while (existe);
+
+        return numeroCuenta;
+    }
+
     public double consultarSaldo(String identificacion, Banco banco) {
         Usuario usuario = banco.buscarusuario(identificacion);
         if (usuario instanceof Cliente) {
             Cliente cliente = (Cliente) usuario;
             if (!cliente.getCuentas().isEmpty()) {
-                return cliente.getCuentas().get(0).consultarSaldo(); // Consulta la primera cuenta
+                return cliente.getCuentas().get(0).getSaldo();
             }
         }
-        return -1; // Retorna -1 si no se encontró o no tiene cuenta
+        return -1;
     }
 
     public String realizarTransferencia(String identificacionOrigen, String identificacionDestino, double monto, Banco banco) {
@@ -106,12 +145,12 @@ public class Cajero extends Usuario{
             Cliente clienteOrigen = (Cliente) usuarioOrigen;
             Cliente clienteDestino = (Cliente) usuarioDestino;
 
-            // Verificar que ambos clientes tengan cuentas
-            if (!clienteOrigen.getCuentas().isEmpty() && !clienteDestino.getCuentas().isEmpty()) {
-                CuentaBancaria cuentaOrigen = clienteOrigen.getCuentas().get(0); // Cuenta de origen
-                CuentaBancaria cuentaDestino = clienteDestino.getCuentas().get(0); // Cuenta de destino
 
-                if (cuentaOrigen.consultarSaldo() >= monto) {
+            if (!clienteOrigen.getCuentas().isEmpty() && !clienteDestino.getCuentas().isEmpty()) {
+                CuentaBancaria cuentaOrigen = clienteOrigen.getCuentas().get(0);
+                CuentaBancaria cuentaDestino = clienteDestino.getCuentas().get(0);
+
+                if (cuentaOrigen.getSaldo() >= monto) {
                     cuentaOrigen.retirar(monto);
                     cuentaDestino.depositar(monto);
                     return "Transferencia realizada con éxito.";
@@ -128,8 +167,8 @@ public class Cajero extends Usuario{
         if (usuario instanceof Cliente) {
             Cliente cliente = (Cliente) usuario;
             StringBuilder reporte = new StringBuilder("Reporte de Movimientos de Cliente " + identificacion + ":\n");
-            if (cliente.getHistorialTransacciones() != null && !cliente.getHistorialTransacciones().isEmpty()) {
-                for (Transaccion transaccion : cliente.getHistorialTransacciones()) {
+            if (cliente.verHistorialTransacciones() != null && !cliente.verHistorialTransacciones().isEmpty()) {
+                for (Transaccion transaccion : cliente.getHistorialTransacciones()){
                     reporte.append(transaccion.toString()).append("\n");
                 }
             } else {

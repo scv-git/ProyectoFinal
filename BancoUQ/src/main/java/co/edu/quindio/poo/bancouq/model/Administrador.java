@@ -57,21 +57,8 @@ public class Administrador extends Usuario {
         }
         return reporte.toString();
     }
-    public String monitorearTransacciones(Banco banco) {
-        StringBuilder reporte = new StringBuilder("Historial de Transacciones:\n");
-        for (Usuario usuario : banco.listarusuarios()) {
-            if (usuario instanceof Cliente) {
-                Cliente cliente = (Cliente) usuario;
-                reporte.append("Cliente: ").append(cliente.getNombres()).append(" ").append(cliente.getApellidos()).append("\n");
-                for (Transaccion transaccion : cliente.getHistorialTransacciones()) {
-                    reporte.append("    ").append(transaccion.toString()).append("\n");
-                }
-            }
-        }
-        return reporte.toString();
-    }
-}
 
+}
 
 
 

@@ -1,6 +1,5 @@
 package co.edu.quindio.poo.bancouq.model;
 
-
 import java.util.ArrayList;
 
 public abstract class CuentaBancaria {
@@ -8,12 +7,14 @@ public abstract class CuentaBancaria {
     protected String numeroCuenta;
     protected double saldo;
     protected ArrayList<Cliente> listaClientes;
+    protected ArrayList<CuentaBancaria> listaCuentas;
 
     public CuentaBancaria(String numeroCuenta, double saldo) {
 
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
         this.listaClientes = new ArrayList<>();
+        this.listaCuentas = new ArrayList<>();
 
     }
 
@@ -39,6 +40,14 @@ public abstract class CuentaBancaria {
 
     public void setListaClientes(ArrayList<Cliente> listaClientes) {
         this.listaClientes = listaClientes;
+    }
+
+    public ArrayList<CuentaBancaria> getListaCuentas() {
+        return listaCuentas;
+    }
+
+    public void setListaCuentas(ArrayList<CuentaBancaria> listaCuentas) {
+        this.listaCuentas = listaCuentas;
     }
 
     @Override
@@ -83,7 +92,7 @@ public abstract class CuentaBancaria {
                 return cliente.getNombres();
             }
         }
-        return null; // o "No encontrado", según tu lógica.
+        return null;
     }
 
 
@@ -119,6 +128,24 @@ public abstract class CuentaBancaria {
 
     }
 
+    public String encontrarCuentaCliente() {
+
+        for (CuentaBancaria cuentaBancaria : listaCuentas) {
+
+            if (cuentaBancaria.getNumeroCuenta().equals(numeroCuenta)) {
+
+                System.out.println("El cliente se encuentra");
+                return cuentaBancaria.getNumeroCuenta();
+
+
+            }
+
+
+        }
+
+        return "El cliente no se encuentra ";
+
+    }
 
 
 }
