@@ -2,6 +2,7 @@ package co.edu.quindio.poo.bancouq.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class Cliente extends Usuario{
     private String idUsuario;
@@ -79,7 +80,7 @@ public class Cliente extends Usuario{
             return "Cuenta origen no encontrada.";
         }
 
-        CuentaBancaria cuentaDestino = banco.buscarusuario(numeroCuentaDestino);
+        CuentaBancaria cuentaDestino = banco.buscarCuentaPorNumero(numeroCuentaDestino);
 
         if (cuentaDestino == null) {
             return "Cuenta destino no encontrada.";

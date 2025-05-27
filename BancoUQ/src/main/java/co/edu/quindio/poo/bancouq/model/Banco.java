@@ -94,5 +94,16 @@ public class Banco {
         return listausuarios;
     }
 
+    public CuentaBancaria buscarCuentaPorNumero(String numeroCuenta) {
+        for (CuentaBancaria cuenta : listacuentas) {
+            if (cuenta.getNumeroCuenta().equals(numeroCuenta)) {
+                return cuenta;
+            }
+        }
+        return null;
+    }
+
+
+
 
 }

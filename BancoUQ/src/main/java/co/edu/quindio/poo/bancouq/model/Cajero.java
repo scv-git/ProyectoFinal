@@ -103,6 +103,7 @@ public class Cajero extends Usuario{
     private String generarNumeroCuenta(Banco banco) {
         String numeroCuenta;
         boolean existe;
+        int contadorCuentas = 0;
 
         do {
             numeroCuenta = "CTA" + String.format("%06d", contadorCuentas++);
